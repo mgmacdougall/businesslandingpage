@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <title>Frontend Mentor | Product list with cart</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="meals">
+    <div id="mealslist-main-container">
+      <h1 class="red-hat-text-600 font-weight-bold">Desserts</h1>
+      <div id="meal-items-container">
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center"> Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+            </div>
+            <div>
+              <ul class="meal-info">
+                <li class="meal-list-item li-none">Waffles with Berries</li>
+                <li class="meal-list-item li-none">Waffle</li>
+                <li class="meal-list-item li-none">6.50</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center">Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <div>
+                <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+              </div>
+            </div>
+            <ul class="meal-info">
+              <li class="meal-list-item li-none">Waffles with Berries</li>
+              <li class="meal-list-item li-none">Waffle</li>
+              <li class="meal-list-item li-none">6.50</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center"> Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <div>
+                <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+              </div>
+            </div>
+            <ul class="meal-info">
+              <li class="meal-list-item li-none">Waffles with Berries</li>
+              <li class="meal-list-item li-none">Waffle</li>
+              <li class="meal-list-item li-none">6.50</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center"> Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <div>
+                <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+              </div>
+            </div>
+            <ul class="meal-info">
+              <li class="meal-list-item li-none">Waffles with Berries</li>
+              <li class="meal-list-item li-none">Waffle</li>
+              <li class="meal-list-item li-none">6.50</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center"> Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <div>
+                <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+              </div>
+            </div>
+            <ul class="meal-info">
+              <li class="meal-list-item li-none">Waffles with Berries</li>
+              <li class="meal-list-item li-none">Waffle</li>
+              <li class="meal-list-item li-none">6.50</li>
+            </ul>
+          </div>
+        </div>
+        <div class="meal-card">
+          <h3 class="red-hat-text-400 font-weight-bold text-center"> Waffle with Berries</h3>
+          <div class="meal-details">
+            <div class="img-container">
+              <img class="meal-image" src="/assets/images/image-waffle-desktop.jpg" alt="Image of waffle">
+              <div>
+                <button><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+              </div>
+            </div>
+            <ul class="meal-info">
+              <li class="meal-list-item li-none">Waffles with Berries</li>
+              <li class="meal-list-item li-none">Waffle</li>
+              <li class="meal-list-item li-none">6.50</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cartlist">
+      <h2>Your Cart (Quantity)</h2>
+      <p>Your added items will appear here</p>
+    </div>
+  </section>
+  <!-- Waffle with Berries
+  Waffle
+  6.50
+  Add to Cart
+
+  Vanilla Bean Crème Brûlée
+  Crème Brûlée
+  7.00
+  Add to Cart
+
+  Macaron Mix of Five
+  Macaron
+  8.00
+  Add to Cart
+
+  Classic Tiramisu
+  Tiramisu
+  5.50
+  Add to Cart
+
+  Pistachio Baklava
+  Baklava
+  4.00
+  Add to Cart
+
+  Lemon Meringue Pie
+  Pie
+  5.00
+  Add to Cart
+
+  Red Velvet Cake
+  Cake
+  4.50
+  Add to Cart
+
+  Salted Caramel Brownie
+  Brownie
+  4.50
+  Add to Cart
+
+  Vanilla Panna Cotta
+  Panna Cotta
+  6.50
+  Add to Cart
+
+  Your Cart (Quantity) -->
+  <!-- Your added items will appear here -->
+
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+</body>
+
+</html>
