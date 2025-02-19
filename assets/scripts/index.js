@@ -25,12 +25,12 @@ var render = (data) => {
         <div class="meal-details">
         <div class="img-container">
         <img class="meal-image" src="${desktop}" alt="Image of waffle">
-        <button id="${name.replace(/[","," "]/g, '').toLowerCase()}-button"><img src="/assets/images/icon-add-to-cart.svg" />Add to card</button>
+        <button id="${name.replace(/[","," "]/g, '').toLowerCase()}-button" class="red-hat-text-400"><img src="/assets/images/icon-add-to-cart.svg" /><span>Add to card</span></button>
         </div>
         <div>
         <ul class="meal-info">
+        <li class="meal-list-item li-none font-weight-light font-color-gray red-hat-text-200">${name.split(' ')[0]}</li>
         <li class="meal-list-item li-none">${name}</li>
-        <li class="meal-list-item li-none">${name.split(' ')[1]}</li>
         <li class="meal-list-item li-none">${price}</li>
         </ul>
         </div>
