@@ -12,12 +12,16 @@ body {
 
 #meals {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 #mealslist-main-container {
     display: flex;
     width: 75%;
+}
+
+#meals-header {
+    width: 1100px;
 }
 
 #meal-items-container {
@@ -50,6 +54,13 @@ body {
     font-style: normal;
 }
 
+.red-hat-text-500 {
+    font-family: "Red Hat Text", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .red-hat-text-600 {
     font-family: "Red Hat Text", serif;
     font-optical-sizing: auto;
@@ -61,12 +72,16 @@ body {
     font-weight: bold;
 }
 
-.font-weight-light{
+.font-weight-light {
     font-weight: lighter;
 }
 
-.font-color-gray{
+.font-color-gray {
     color: lightgray;
+}
+
+.font-color-gray-med {
+    color: rgb(28 2 2 / 40%)
 }
 
 .text-center {
@@ -99,7 +114,6 @@ button {
     align-items: anchor-center;
     background-color: whitesmoke;
     color: black;
-    font-family: ;
 }
 
 button:hover {
@@ -110,4 +124,18 @@ button:hover {
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.red {
+    color: hsl(14, 86%, 42%)
+}
+
+#cartlist {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    max-height: 250px;
+    padding: 10px;
+    justify-content: space-between;
 }
