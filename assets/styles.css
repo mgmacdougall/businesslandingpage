@@ -120,6 +120,10 @@ button:hover {
     border: 1px solid black;
 }
 
+.order-quantity-button{
+    background-color:  hsl(14, 86%, 42%) ;
+    color: white;
+}
 #meals-header {
     width: 1100px;
     margin-left: auto;
@@ -141,4 +145,14 @@ button:hover {
 }
 span{
     pointer-events: none;
+}
+
+
+.hidden{
+    display: none;
+}
+
+
+.minus{
+    background: url('/assets/images/icon-decrement-quantity.svg');
 }
