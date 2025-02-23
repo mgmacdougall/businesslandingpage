@@ -3,23 +3,48 @@ var customerOrder = [];
 var renderCart = () => {
 
     var cartContainer = document.getElementById("cartlist");
+    cartContainer.innerHTML = null; // empty out the previous contents
 
-    console.log(customerOrder)
 
-    var result =Object.values(customerOrder.reduce((value, object) => {
-  
-        console.log(value);
-        console.log(value[object.name])
+    var result = Object.values(customerOrder.reduce((value, object) => {
         if (value[object.name]) {
-            value[object.name].quantity+=1;
+            value[object.name].quantity += 1;
         } else {
             value[object.name] = { ...object }
         }
         return value;
     }, {}))
+
+    var total = result.reduce((accu, element) => {
+        accu += (element.quantity * parseFloat(element.price));
+        return accu;
+    }, 0)
+
+    var list = result.map(item => {
+        const { name, price, quantity } = item;
+        return `
+            <div>
+                <p>${name}</p>
+                <span>${quantity} @ ${name}</span>
+                <p>${quantity * price}</p>
+            </div>
+        `
+    });
+
+    list.map(e => {
+        cartContainer.innerHTML += e
+    })
+
+    // build the total container
+    const totalDiv = document.createElement('div');
+    const totalSpan = document.createElement('span');
+    totalSpan.innerText = "Total is: " + total;
+    totalDiv.append(totalSpan);
+    cartContainer.appendChild(totalDiv)
+
 }
 
-
+let orderTotal = 0;
 var updateCart = (orderItem, action = "add") => {
     if (action === "add") {
         customerOrder.push(orderItem);
@@ -41,8 +66,6 @@ var displayOrderButton = e => {
     var addOrderButton = document.getElementById(`${baseId}-button-order`);
     addOrderButton.classList.toggle('hidden')
 }
-
-
 
 var addToCartEventListener = (e, action) => {
     var itemClicked = e.target.id.split('-')[0];
@@ -116,7 +139,6 @@ var render = (data) => {
     });
 
 }
-
 
 window.onload = (() => {
     fetch('data.json').then(data => data.json()).then(jsonData => render(jsonData))
