@@ -3,6 +3,7 @@ var customerOrder = [];
 var renderCart = () => {
 
     var cartContainer = document.getElementById("cartlist");
+    var orderListContainer = document.getElementById("orderlist");
     cartContainer.innerHTML = null; // empty out the previous contents
 
 
@@ -20,10 +21,17 @@ var renderCart = () => {
         return accu;
     }, 0)
 
+    var totalQuantity = result.reduce((acc, element) => {
+        acc += element.quantity;
+        return acc
+
+
+    }, 0)
+
     var list = result.map(item => {
         const { name, price, quantity } = item;
         return `
-            <div>
+            <div id="orderlist">
                 <p>${name}</p>
                 <span>${quantity} @ ${name}</span>
                 <p>${quantity * price}</p>
@@ -31,6 +39,7 @@ var renderCart = () => {
         `
     });
 
+    // build the list
     list.map(e => {
         cartContainer.innerHTML += e
     })
@@ -41,7 +50,17 @@ var renderCart = () => {
     totalSpan.innerText = "Total is: " + total;
     totalDiv.append(totalSpan);
     cartContainer.appendChild(totalDiv)
-
+    
+    // add your cart header.
+    const totalHeaderDiv = document.createElement('div');
+    const totalHeaderTitle = document.createElement('h2');
+    totalHeaderTitle.innerHTML = `Your Cart (${totalQuantity})`;
+    totalHeaderDiv.append(totalHeaderTitle);
+    const orderList = document.getElementById("orderlist");
+    orderList.before(totalHeaderDiv);
+    
+    // add build confirmation order
+    //TODO: 
 }
 
 let orderTotal = 0;
