@@ -1,13 +1,38 @@
+var customerOrder = [];
 
-var updateCart = (orderItem) => {
+var renderCart = () => {
+
+    var cartContainer = document.getElementById("cartlist");
+
+    console.log(customerOrder)
+
+    var result =Object.values(customerOrder.reduce((value, object) => {
+  
+        console.log(value);
+        console.log(value[object.name])
+        if (value[object.name]) {
+            value[object.name].quantity+=1;
+        } else {
+            value[object.name] = { ...object }
+        }
+        return value;
+    }, {}))
+}
 
 
-
-
+var updateCart = (orderItem, action = "add") => {
+    if (action === "add") {
+        customerOrder.push(orderItem);
+        renderCart(customerOrder)
+    } else {
+        var itemIndex = customerOrder.findIndex(e => orderItem.name === e.name);
+        if (itemIndex !== -1) {
+            customerOrder.splice(0, 1);
+        }
+    }
 }
 
 var displayOrderButton = e => {
-    console.log(e.target.id.split('-').shift());
     var baseId = e.target.id.split('-').shift();
 
     var orderButton = document.getElementById(`${baseId}-button`);
@@ -19,7 +44,7 @@ var displayOrderButton = e => {
 
 
 
-var addToCartEventListener = (e) => {
+var addToCartEventListener = (e, action) => {
     var itemClicked = e.target.id.split('-')[0];
     var categorySelector = `${itemClicked}-cat`;
     var nameSelector = `${itemClicked}-name`;
@@ -27,6 +52,12 @@ var addToCartEventListener = (e) => {
     var categoryText = document.getElementById(categorySelector).innerText;
     var nameText = document.getElementById(nameSelector).innerText;
     var priceText = document.getElementById(priceSelector).innerText;
+    var order = {
+        name: nameText,
+        price: priceText,
+        quantity: 1
+    }
+    updateCart(order, action)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,20 +65,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (e.target.type === "submit" && !e.target.classList.contains('order-quantity-button')) {
             displayOrderButton(e);
-            addToCartEventListener(e);
+
         }
 
-        console.log(e.target)
         if (e.target.alt === "Remove") {
             var orderCount = document.querySelector(`#${e.target.id}`).nextElementSibling;
-            var currentCount =parseInt(orderCount.innerText);
-            currentCount<=0? orderCount.innerText=0: orderCount.innerText-=1;
+            var currentCount = parseInt(orderCount.innerText);
+            currentCount <= 0 ? orderCount.innerText = 0 : orderCount.innerText -= 1;
+            addToCartEventListener(e, "remove");
         }
 
         if (e.target.alt === "Add") {
             var orderCount = document.querySelector(`#${e.target.id}`).previousElementSibling;
-            var currentCount =parseInt(orderCount.innerText);
-            orderCount.innerText=currentCount+=1;
+            var currentCount = parseInt(orderCount.innerText);
+            orderCount.innerText = currentCount += 1;
+            addToCartEventListener(e, "add");
         }
 
     })
