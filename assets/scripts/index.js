@@ -31,9 +31,9 @@ var renderCart = () => {
     var list = result.map(item => {
         const { name, price, quantity } = item;
         return `
-            <div id="orderlist">
-                <p>${name}</p>
-                <span>${quantity} @ ${name}</span>
+            <div id="orderlist" class="align-left">
+                <p class="red-hat-text-500">${name}</p>
+                <span><span class="red font-weight-bold">${quantity}x</span> @ ${price}<span>${quantity * price}</span></span>
                 <p>${quantity * price}</p>
             </div>
         `
@@ -54,13 +54,21 @@ var renderCart = () => {
     // add your cart header.
     const totalHeaderDiv = document.createElement('div');
     const totalHeaderTitle = document.createElement('h2');
+    totalHeaderTitle.classList.add('red');
     totalHeaderTitle.innerHTML = `Your Cart (${totalQuantity})`;
     totalHeaderDiv.append(totalHeaderTitle);
     const orderList = document.getElementById("orderlist");
     orderList.before(totalHeaderDiv);
     
     // add build confirmation order
-    //TODO: 
+    const orderConfirmContainer=document.createElement('div');
+
+    const orderConfirmButton = document.createElement('button');
+    orderConfirmButton.classList.add('relative');
+    orderConfirmButton.innerText="Confirm order";
+    orderConfirmButton.id="order-confirm";
+    orderConfirmContainer.append(orderConfirmButton)
+    cartContainer.append(orderConfirmContainer);
 }
 
 let orderTotal = 0;

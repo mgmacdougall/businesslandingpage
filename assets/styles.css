@@ -72,6 +72,10 @@ body {
     font-weight: bold;
 }
 
+.relative {
+    position: relative;
+}
+
 .font-weight-light {
     font-weight: lighter;
 }
@@ -120,8 +124,24 @@ button:hover {
     border: 1px solid black;
 }
 
-.order-quantity-button{
-    background-color:  hsl(14, 86%, 42%) ;
+.order-quantity-button {
+    background-color: hsl(14, 86%, 42%);
+    color: white;
+}
+
+#order-confirm {
+    position: relative;
+    bottom: -20px;
+    left: 10%;
+    width: 150px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 20px;
+    border-radius: 20px;
+    justify-content: space-around;
+    display: flex;
+    align-items: anchor-center;
+    background-color: hsl(14, 86%, 42%);
     color: white;
 }
 
@@ -144,16 +164,21 @@ button:hover {
     padding: 10px;
     justify-content: space-between;
 }
-span{
+
+span {
     pointer-events: none;
 }
 
 
-.hidden{
+.hidden {
     display: none;
 }
 
 
-.minus{
+.minus {
     background: url('/assets/images/icon-decrement-quantity.svg');
+}
+
+.align-left {
+    text-align: left;
 }
