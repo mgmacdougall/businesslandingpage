@@ -50,7 +50,7 @@ var renderCart = () => {
     totalSpan.innerText = "Total is: " + total;
     totalDiv.append(totalSpan);
     cartContainer.appendChild(totalDiv)
-    
+
     // add your cart header.
     const totalHeaderDiv = document.createElement('div');
     const totalHeaderTitle = document.createElement('h2');
@@ -59,14 +59,14 @@ var renderCart = () => {
     totalHeaderDiv.append(totalHeaderTitle);
     const orderList = document.getElementById("orderlist");
     orderList.before(totalHeaderDiv);
-    
+
     // add build confirmation order
-    const orderConfirmContainer=document.createElement('div');
+    const orderConfirmContainer = document.createElement('div');
 
     const orderConfirmButton = document.createElement('button');
     orderConfirmButton.classList.add('relative');
-    orderConfirmButton.innerText="Confirm order";
-    orderConfirmButton.id="order-confirm";
+    orderConfirmButton.innerText = "Confirm order";
+    orderConfirmButton.id = "order-confirm";
     orderConfirmContainer.append(orderConfirmButton)
     cartContainer.append(orderConfirmContainer);
 }
@@ -110,11 +110,69 @@ var addToCartEventListener = (e, action) => {
     updateCart(order, action)
 }
 
+const renderSummaryModal = () => {
+
+    var mealContainer = document.getElementById("meals");
+    const confirmationModal = document.getElementById('orderconfirmation-modal');
+    // mealsListContainer.innerHTML = null; // empty out the previous contents
+
+    var result = Object.values(customerOrder.reduce((value, object) => {
+        if (value[object.name]) {
+            value[object.name].quantity += 1;
+        } else {
+            value[object.name] = { ...object }
+        }
+        return value;
+    }, {}))
+
+    var total = result.reduce((accu, element) => {
+        accu += (element.quantity * parseFloat(element.price));
+        return accu;
+    }, 0)
+
+    var totalQuantity = result.reduce((acc, element) => {
+        acc += element.quantity;
+        return acc
+    }, 0)
+
+    var list = result.map(item => {
+        const { name, price, quantity } = item;
+        return `
+            <div>
+                <p class="red-hat-text-500">${name}</p>
+                <span><span class="red font-weight-bold">${quantity}x</span> @ ${price}<span>${quantity * price}</span></span>
+                <p>${quantity * price}</p>
+                <div id="order-confirm-total"></div>
+            </div>
+        `
+    });
+
+    const modalDivOuter = document.createElement('div');
+    modalDivOuter.classList.add('modal-contents');
+    // build the list
+    list.map(e => {
+        modalDivOuter.innerHTML += e
+    })
+    
+
+    const modalDiv = document.querySelector("#modal-contents")
+    confirmationModal.classList.toggle('hidden');
+
+    
+    confirmationModal.append(modalDivOuter)
+    mealContainer.append(confirmationModal)
+
+}
 document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('click', e => {
 
         if (e.target.type === "submit" && !e.target.classList.contains('order-quantity-button')) {
-            displayOrderButton(e);
+            if (e.target.id == "order-confirm") {
+                renderSummaryModal(e);
+            } else {
+                displayOrderButton(e);
+
+            }
 
         }
 
