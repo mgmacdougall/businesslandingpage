@@ -114,6 +114,7 @@ const renderSummaryModal = () => {
 
     var mealContainer = document.getElementById("meals");
     const confirmationModal = document.getElementById('orderconfirmation-modal');
+    const mealList = document.getElementById('modal-contents');
     // mealsListContainer.innerHTML = null; // empty out the previous contents
 
     var result = Object.values(customerOrder.reduce((value, object) => {
@@ -149,18 +150,32 @@ const renderSummaryModal = () => {
 
     const modalDivOuter = document.createElement('div');
     modalDivOuter.classList.add('modal-contents');
+    modalDivOuter.id = "modal-contents-container";
+
+    modalDivOuter.innerHTML+=`
+    <div>
+        <img src="./assets/images/icon-order-confirmed.svg"/>
+        <h3>Order confirmed</h3>
+    </div>`
+
     // build the list
     list.map(e => {
         modalDivOuter.innerHTML += e
     })
-    
 
-    const modalDiv = document.querySelector("#modal-contents")
+
+    const modalDiv = document.querySelector("#modal-contents");
     confirmationModal.classList.toggle('hidden');
+    const startOverButtonContainer = document.createElement('div');
 
+    const startOverButton = document.createElement('button');
+    startOverButton.id = 'modal-order-button';
+    startOverButton.innerText = "Start over";
     
-    confirmationModal.append(modalDivOuter)
-    mealContainer.append(confirmationModal)
+    modalDivOuter.appendChild(startOverButton);
+    modalDiv.append(modalDivOuter);
+
+
 
 }
 document.addEventListener("DOMContentLoaded", () => {
