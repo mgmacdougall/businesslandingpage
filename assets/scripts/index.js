@@ -71,6 +71,26 @@ var renderCart = () => {
     cartContainer.append(orderConfirmContainer);
 }
 
+var resetCart = () => {
+    var cartListContainer = document.getElementById('cartlist');
+    cartListContainer.innerHTML = null;
+    cartListContainer.innerHTML = `
+        <div>
+            <h2 class="red">Your Cart (Quantity)</h2>
+        </div>
+        <div>
+            <img src="assets/images/illustration-empty-cart.svg" alt="Slice of cake">
+        </div>
+        <div>
+            <p class="red-hat-text-600 font-weight-bold font-color-gray-med">Your added items will appear here</p>
+        </div>
+    `
+    const confirmationModal = document.getElementById('orderconfirmation-modal');
+    confirmationModal.innerHTML=null;
+    confirmationModal.classList.toggle('hidden');
+    window.location.reload();
+}
+
 let orderTotal = 0;
 var updateCart = (orderItem, action = "add") => {
     if (action === "add") {
@@ -115,7 +135,6 @@ const renderSummaryModal = () => {
     var mealContainer = document.getElementById("meals");
     const confirmationModal = document.getElementById('orderconfirmation-modal');
     const mealList = document.getElementById('modal-contents');
-    // mealsListContainer.innerHTML = null; // empty out the previous contents
 
     var result = Object.values(customerOrder.reduce((value, object) => {
         if (value[object.name]) {
@@ -152,7 +171,7 @@ const renderSummaryModal = () => {
     modalDivOuter.classList.add('modal-contents');
     modalDivOuter.id = "modal-contents-container";
 
-    modalDivOuter.innerHTML+=`
+    modalDivOuter.innerHTML += `
     <div>
         <img src="./assets/images/icon-order-confirmed.svg"/>
         <h3>Order confirmed</h3>
@@ -171,24 +190,32 @@ const renderSummaryModal = () => {
     const startOverButton = document.createElement('button');
     startOverButton.id = 'modal-order-button';
     startOverButton.innerText = "Start over";
-    
+
     modalDivOuter.appendChild(startOverButton);
     modalDiv.append(modalDivOuter);
 
 
 
 }
+
+const startOver = () => {
+    // set the cart to zero
+
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('click', e => {
+
+        if (e.target.id == "modal-order-button") {
+           return resetCart();
+        }
 
         if (e.target.type === "submit" && !e.target.classList.contains('order-quantity-button')) {
             if (e.target.id == "order-confirm") {
                 renderSummaryModal(e);
             } else {
                 displayOrderButton(e);
-
             }
-
         }
 
         if (e.target.alt === "Remove") {

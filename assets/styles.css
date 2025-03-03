@@ -178,6 +178,9 @@ span {
 .minus {
     background: url('/assets/images/icon-decrement-quantity.svg');
 }
+.confirmed{
+    background: url('/assets/images/');
+}
 
 .align-left {
     text-align: left;
@@ -227,3 +230,7 @@ span {
     position: static;
     margin: 0 auto;
 }
+
+/* body > *:not(.modal):not(.modal-contents ) {
+    pointer-events: none;
+  } */
