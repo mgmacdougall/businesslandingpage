@@ -156,7 +156,6 @@ button:hover {
 }
 
 #cartlist {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -231,6 +230,35 @@ span {
     margin: 0 auto;
 }
 
-/* body > *:not(.modal):not(.modal-contents ) {
-    pointer-events: none;
-  } */
+@media (max-width: 375px) {
+
+    body{
+        max-width: 300px;
+        overflow-x: hidden !important;
+    }
+
+    #mealslist-main-container{
+        display: flex;
+        flex-direction: column;
+        width: 299px;
+    }
+
+    #meals-header{
+        width: 300px;
+    }
+    #meal-items-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #cartlist{
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    .meal-card{
+        margin: 0 auto;
+    }
+}

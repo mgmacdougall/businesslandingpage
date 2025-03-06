@@ -23,10 +23,14 @@ var renderCart = () => {
 
     var totalQuantity = result.reduce((acc, element) => {
         acc += element.quantity;
-        return acc
-
-
+        return acc;
     }, 0)
+
+    if (result.length == 0) {
+        // reset buttons that have 0 set
+
+        return resetCart();
+    }
 
     var list = result.map(item => {
         const { name, price, quantity } = item;
@@ -73,23 +77,33 @@ var renderCart = () => {
 
 var resetCart = () => {
     var cartListContainer = document.getElementById('cartlist');
-    cartListContainer.innerHTML = null;
-    cartListContainer.innerHTML = `
-        <div>
-            <h2 class="red">Your Cart (Quantity)</h2>
-        </div>
-        <div>
-            <img src="assets/images/illustration-empty-cart.svg" alt="Slice of cake">
-        </div>
-        <div>
-            <p class="red-hat-text-600 font-weight-bold font-color-gray-med">Your added items will appear here</p>
-        </div>
-    `
+   
     const confirmationModal = document.getElementById('orderconfirmation-modal');
-    confirmationModal.innerHTML=null;
-    confirmationModal.classList.toggle('hidden');
-    window.location.reload();
+    if(confirmationModal.checkVisibility()==true){
+        hideModal();
+    }else{
+        cartListContainer.innerHTML = null;
+        cartListContainer.innerHTML = `
+            <div>
+                <h2 class="red">Your Cart (Quantity)</h2>
+            </div>
+            <div>
+                <img src="assets/images/illustration-empty-cart.svg" alt="Slice of cake">
+            </div>
+            <div>
+                <p class="red-hat-text-600 font-weight-bold font-color-gray-med">Your added items will appear here</p>
+            </div>
+        ` 
+    }
 }
+
+const hideModal = ()=>{
+    const confirmationModal = document.getElementById('orderconfirmation-modal');
+    confirmationModal.innerHTML = null;
+    confirmationModal.classList.toggle('hidden');   
+}
+
+const reloadPage = ()=>window.location.reload();
 
 let orderTotal = 0;
 var updateCart = (orderItem, action = "add") => {
@@ -101,6 +115,7 @@ var updateCart = (orderItem, action = "add") => {
         if (itemIndex !== -1) {
             customerOrder.splice(0, 1);
         }
+        renderCart(customerOrder);
     }
 }
 
@@ -114,6 +129,18 @@ var displayOrderButton = e => {
     addOrderButton.classList.toggle('hidden')
 }
 
+var hideOrderButton = e => {
+
+    var baseId = e.target.id.split('-').shift();
+
+    var orderButton = document.getElementById(`${baseId}-button`);
+    orderButton.classList.toggle('hidden');
+
+    var addOrderButton = document.getElementById(`${baseId}-button-order`);
+    addOrderButton.classList.toggle('hidden')
+
+
+}
 var addToCartEventListener = (e, action) => {
     var itemClicked = e.target.id.split('-')[0];
     var categorySelector = `${itemClicked}-cat`;
@@ -198,16 +225,14 @@ const renderSummaryModal = () => {
 
 }
 
-const startOver = () => {
-    // set the cart to zero
-
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('click', e => {
 
         if (e.target.id == "modal-order-button") {
-           return resetCart();
+            resetCart();
+            hideModal();
+            reloadPage();
         }
 
         if (e.target.type === "submit" && !e.target.classList.contains('order-quantity-button')) {
@@ -222,7 +247,28 @@ document.addEventListener("DOMContentLoaded", () => {
             var orderCount = document.querySelector(`#${e.target.id}`).nextElementSibling;
             var currentCount = parseInt(orderCount.innerText);
             currentCount <= 0 ? orderCount.innerText = 0 : orderCount.innerText -= 1;
-            addToCartEventListener(e, "remove");
+            if (orderCount.innerText == 0) {
+                hideOrderButton(e);
+                var mealCard=e.target.id.split('-')[0];
+                var result = document.querySelector(`#${mealCard}-name`)
+                var cardText=result.innerText;
+        
+               var r= customerOrder.indexOf('Waffle with Berries');
+               customerOrder.forEach(e=>{
+                    if(e.name===cardText){
+                        customerOrder.splice(r, 1);
+                        renderCart();
+                    }
+               })
+ 
+                if(customerOrder.length==0){
+                    resetCart();
+
+                }
+                
+            } else {
+                addToCartEventListener(e, "remove");
+            }
         }
 
         if (e.target.alt === "Add") {
